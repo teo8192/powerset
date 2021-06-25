@@ -12,7 +12,7 @@ pub trait SizableContainer {
 
 /// This is the powerset trait. It is implemented for everything that implements Index and
 /// SizableContainer.
-/// 
+///
 /// Example usage:
 /// ```
 ///     use crate::powerset::{SizableContainer, Powerset};
@@ -118,22 +118,70 @@ mod tests {
         let mut powerset = items.powerset();
 
         // Test that we get all subsets of the vector, and nothing more
-        assert_eq!(Vec::<i32>::new(), powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![2], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 2], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![3], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 3], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![2, 3], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 2, 3], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![2, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 2, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![3, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 3, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![2, 3, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
-        assert_eq!(vec![1, 2, 3, 4], powerset.next().unwrap().cloned().collect::<Vec<i32>>());
+        assert_eq!(
+            Vec::<i32>::new(),
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![2],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 2],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![3],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 3],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![2, 3],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 2, 3],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![2, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 2, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![3, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 3, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![2, 3, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
+        assert_eq!(
+            vec![1, 2, 3, 4],
+            powerset.next().unwrap().cloned().collect::<Vec<i32>>()
+        );
         assert!(powerset.next().is_none());
     }
 }
