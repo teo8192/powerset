@@ -30,11 +30,11 @@ pub trait Powerset<'a, I: Index<usize> + SizableContainer>
 where
     I::Output: Sized,
 {
-    fn powerset(&'a self) -> PowersetIterator<'a, I>;
+    fn powerset(&'a self) -> SubsetIterator<'a, I>;
 }
 
-/// The iterator returned from the Powerset trait
-pub struct PowersetIterator<'a, I: Index<usize>>
+/// The iterator returned from the [`Powerset`](Powerset) trait
+pub struct SubsetIterator<'a, I: Index<usize>>
 where
     I::Output: Sized,
 {
@@ -42,7 +42,7 @@ where
     subset: usize,
 }
 
-impl<'a, I: Index<usize> + SizableContainer> Iterator for PowersetIterator<'a, I>
+impl<'a, I: Index<usize> + SizableContainer> Iterator for SubsetIterator<'a, I>
 where
     I::Output: Sized,
 {
@@ -63,7 +63,7 @@ where
     }
 }
 
-/// The subset that is the element of the powerset iterator
+/// The subset that is the element of the [`SubsetIterator`](SubsetIterator)
 pub struct Subset<'a, I: Index<usize>> {
     items: &'a I,
     subset: usize,
@@ -96,8 +96,8 @@ impl<'a, I: Index<usize> + SizableContainer> Powerset<'a, I> for I
 where
     I::Output: Sized,
 {
-    fn powerset(&'a self) -> PowersetIterator<'a, I> {
-        PowersetIterator {
+    fn powerset(&'a self) -> SubsetIterator<'a, I> {
+        SubsetIterator {
             items: self,
             subset: 0,
         }
