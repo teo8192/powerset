@@ -90,6 +90,11 @@ where
             }
         }
     }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        let max_size = (self.subset >> self.next).count_ones() as usize;
+        (max_size, Some(max_size))
+    }
 }
 
 impl<'a, I: Index<usize> + SizableContainer> Powerset<'a, I> for I
@@ -115,7 +120,7 @@ mod tests {
     use crate::Powerset;
 
     #[test]
-    fn it_works() {
+    fn correct_subsets() {
         let items = vec![1, 2, 3, 4];
         let mut powerset = items.powerset();
 
@@ -185,5 +190,28 @@ mod tests {
             powerset.next().unwrap().cloned().collect::<Vec<i32>>()
         );
         assert!(powerset.next().is_none());
+    }
+
+    #[test]
+    fn size_hint() {
+        let items = vec![1, 2, 3, 4, 5, 6];
+
+        for mut set in items.powerset() {
+            let mut count = 0;
+            let size_hint = set.size_hint();
+            println!("{:?}", size_hint);
+            loop {
+                let elem = set.next();
+                if elem.is_none() {
+                    break;
+                }
+                count += 1;
+                println!("{:?} {:?} {:?}", count, size_hint, set.size_hint());
+                assert_eq!(size_hint.0 - count, set.size_hint().0);
+            }
+
+            assert_eq!(count, size_hint.0);
+            assert_eq!(Some(count), size_hint.1);
+        }
     }
 }
