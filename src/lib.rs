@@ -199,14 +199,12 @@ mod tests {
         for mut set in items.powerset() {
             let mut count = 0;
             let size_hint = set.size_hint();
-            println!("{:?}", size_hint);
             loop {
                 let elem = set.next();
                 if elem.is_none() {
                     break;
                 }
                 count += 1;
-                println!("{:?} {:?} {:?}", count, size_hint, set.size_hint());
                 assert_eq!(size_hint.0 - count, set.size_hint().0);
             }
 
