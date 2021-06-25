@@ -48,6 +48,7 @@ where
 {
     type Item = Subset<'a, I>;
     fn next(&mut self) -> Option<Self::Item> {
+        // Check before increment, to avoid unbounded incrementation
         if self.subset >= 1 << self.items.num_elements() {
             return None;
         }
@@ -76,16 +77,17 @@ where
     type Item = &'a I::Output;
     fn next(&mut self) -> Option<Self::Item> {
         loop {
+            // Check before increment, to avoid unbounded incrementation
             if 1 << self.next > self.subset {
                 return None;
             }
 
-            if 1 << self.next & self.subset != 0 {
-                let item = &self.items[self.next];
-                self.next += 1;
-                return Some(item);
-            }
             self.next += 1;
+
+            if 1 << (self.next - 1) & self.subset != 0 {
+                // return the item
+                return Some(&self.items[self.next - 1]);
+            }
         }
     }
 }
