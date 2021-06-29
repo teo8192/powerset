@@ -39,7 +39,7 @@ where
     I::Output: Sized,
 {
     items: &'a I,
-    subset: usize,
+    subset: u64,
 }
 
 impl<'a, I: Index<usize> + SizableContainer> Iterator for SubsetIterator<'a, I>
@@ -66,7 +66,7 @@ where
 /// The subset that is the element of the [`SubsetIterator`](SubsetIterator)
 pub struct Subset<'a, I: Index<usize>> {
     items: &'a I,
-    subset: usize,
+    subset: u64,
     next: usize,
 }
 
